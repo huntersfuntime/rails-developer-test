@@ -1,0 +1,13 @@
+<tr>
+  <td><%= article.title.upcase %></td>
+  <td>Published <%= distance_of_time_in_words(article.created_at, Time.now) %>
+ago </td>
+  <td><%= article.body %></td>
+  <% if user_signed_in? %>
+  <td><%= link_to 'Show', article if logged_in?(:editor, :user, :site_admin) %></td>
+  <td><%= link_to 'Edit', edit_article_path(article) if logged_in?(:editor, :site_admin) %></td>
+  <td><%= link_to 'Delete Post', article, method: :delete, data: { confirm: 'Are you sure?' } if logged_in?(:editor, :site_admin) %></td>
+  <% else %>
+    <td><%= link_to "Register", new_user_registration_path %>
+  <% end %>
+</tr>
